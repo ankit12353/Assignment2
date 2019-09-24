@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_normal"
+            android:paddingRight="@dimen/margin_normal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_login_label"
+                android:textSize="@dimen/text_size_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/label_log_in_to_your_account"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_login_label"
+                android:layout_marginTop="@dimen/margin_normal">
+
+                <EditText
+                    android:id="@+id/et_login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_login_label"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:hint="@string/et_label_email" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_login_email"
+                android:layout_marginTop="@dimen/margin_normal"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/et_login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/et_label_password"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/layout_login_btn"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_login_password">
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:background="@color/colorBtn"
+                    android:text="@string/btn_label_log_in"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_login_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_login_btn"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/tv_lable_don_t_have_an_account_register" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

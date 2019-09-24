@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Assignment2</string>
+    <string name="label_log_in_to_your_account">Log in to your \naccount</string>
+    <string name="et_label_email">Email</string>
+    <string name="et_label_password">Password</string>
+    <string name="btn_label_log_in">Log in</string>
+    <string name="tv_lable_don_t_have_an_account_register">Don\'t have an account? REGISTER</string>
+    <string name="label_welcome_nplease_provide_your_basic_information">Welcome,\nPlease provide your basic information</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_date_of_birth">DOB (DD/MM/YY)</string>
+    <string name="label_user_type">User Type</string>
+    <string name="label_occupation">Occupation</string>
+    <string name="label_sign_up_with_diffrent_account">Sign up with diffrent account?</string>
+    <string name="label_continue">Continue</string>
+    <string name="title_activity_otp">OtpActivity</string>
+    <string name="label_enter_the_verification_code_sent_to_your_number_via_sms">Enter the verification code\n sent to your number via sms</string>
+    <string name="label_otp_verification">OTP Verification</string>
+    <string name="btn_resend">Resend</string>
+    <string name="btn_submit">Submit</string>
+</resources>
