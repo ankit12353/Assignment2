@@ -113,18 +113,15 @@ public class StudentActivity extends AppCompatActivity {
     private boolean isValidate() {
         String etAddName = etName.getText().toString().trim();
         String etAddClass = etClass.getText().toString().trim();
-        int etAddRollNo = Integer.parseInt(etRollNo.getText().toString().trim());
+        String etAddRollNo = etRollNo.getText().toString().trim();
         if (etAddName.isEmpty()) {
             CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_enter_name));
             return false;
-        } else if (.isEmpty()) {
+        } else if (etAddClass.isEmpty()) {
             CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.enter_class));
             return false;
-        }else if(etAddClass<12 && etAddClass>0){
-            CommonUtil.showSnackBar(StudentActivity.this,getResources().getString(R.string.label_invalid_class));
-            return false;
         }
-        else if (String.valueOf(etAddRollNo).isEmpty()) {
+        else if (etAddRollNo.isEmpty()) {
             CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.enter_roll));
             return false;
         } else {
