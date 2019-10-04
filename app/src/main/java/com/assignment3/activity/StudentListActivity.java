@@ -11,9 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import com.assignment3.R;
@@ -126,8 +124,8 @@ public class StudentListActivity extends AppCompatActivity implements StudentLis
     @Override
     protected void onActivityResult(int requestCode,int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode==1){
-            if (resultCode== RESULT_OK){
+        if (resultCode== RESULT_OK){
+            if (requestCode==1){
                 StudentDetails student=data.getParcelableExtra("Object");
                 studentList.add(student);
                 if (studentList.size()==0){
@@ -165,6 +163,7 @@ public class StudentListActivity extends AppCompatActivity implements StudentLis
                 Intent i=new Intent(StudentListActivity.this,StudentActivity.class);
                 i.putExtra("Code",3);
                 i.putExtra("Object",studentList.get(position));
+                studentListAdapter.notifyDataSetChanged();
                 startActivity(i);
                 dialog.dismiss();
             }

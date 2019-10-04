@@ -10,10 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.assignment3.R;
 import com.assignment3.model.StudentDetails;
 import com.assignment3.util.CommonUtil;
+
+import java.util.ArrayList;
 
 public class StudentActivity extends AppCompatActivity {
     EditText etName, etRollNo, etClass;
@@ -41,7 +44,18 @@ public class StudentActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitData();
+                try {
+                    Integer.parseInt(etClass.getText().toString().trim());
+                    try {
+                        Integer.parseInt(etRollNo.getText().toString().trim());
+                        submitData();
+                    }
+                    catch (Exception e){
+                        CommonUtil.showSnackBar(StudentActivity.this,getResources().getString(R.string.label_invalid_roll));
+                    }
+                }catch (Exception e){
+                    CommonUtil.showSnackBar(StudentActivity.this,getResources().getString(R.string.label_invalid_class));
+                }
             }
         });
 
@@ -82,12 +96,15 @@ public class StudentActivity extends AppCompatActivity {
             etRollNo.setInputType(InputType.TYPE_NULL);
             etRollNo.setBackground(getResources().getDrawable(R.drawable.et_view_data));
 
-            String etUpdateName=etName.getText().toString().trim();
-            final int etUpdateClass=Integer.parseInt(etClass.getText().toString().trim());
+            final String etUpdateName=etName.getText().toString().trim();
+//            final String etUpdateClass=etClass.getText().toString().trim();
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+                    studentList.setTvDisplayName(etUpdateName);
+//                    studentList.setTvDisplayClass(Integer.parseInt(etUpdateClass));
+                    finish();
                 }
             });
 
@@ -99,6 +116,8 @@ public class StudentActivity extends AppCompatActivity {
         String etAddName = etName.getText().toString().trim();
         String etAddClass = etClass.getText().toString().trim();
         String etAddRollNo = etRollNo.getText().toString().trim();
+
+
 
         if (isValidate()) {
             StudentDetails studentList = new StudentDetails(etAddName, Integer.parseInt(etAddRollNo), Integer.parseInt(etAddClass));
@@ -130,10 +149,10 @@ public class StudentActivity extends AppCompatActivity {
             CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.enter_roll));
             return false;
         }else if (Integer.parseInt(etAddClass)>12){
-            CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_invalid_class));
+            CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_wrong_class));
             return false;
         }else if (Integer.parseInt(etAddClass)<0){
-            CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_invalid_class));
+            CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_wrong_class));
             return false;
         }else if(Integer.parseInt(etAddRollNo)<0){
             CommonUtil.showSnackBar(StudentActivity.this,getResources().getString(R.string.label_invalid_roll));
