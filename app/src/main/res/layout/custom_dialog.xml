@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    >
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_update"
+        android:background="@drawable/common_border"
+        android:paddingHorizontal="@dimen/padding_mediun"
+        android:text="@string/label_popup_update"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_mediun"
+        android:background="@drawable/common_border"
+        android:id="@+id/btn_view"
+        android:text="@string/label_popup_view"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_mediun"
+        android:id="@+id/btn_delete"
+        android:background="@drawable/common_border"
+        android:text="@string/label_popup_delete"/>
+
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Assignment3</string>
+    <string name="toolbar_label_home">Home</string>
+    <string name="label_enter_roll_no">Enter Roll No</string>
+    <string name="label_enter_class">Enter Class</string>
+    <string name="label_enter_name">Enter Name</string>
+    <string name="label_btn_submit">Submit</string>
+    <string name="label_btn_add_student">Add Student</string>
+    <string name="label_no_records_yet">No Records Yet</string>
+    <string name="label_popup_delete">Delete</string>
+    <string name="label_popup_update">Update</string>
+    <string name="label_popup_view">View</string>
+    <string name="label_enter_stdent_name">Please Enter Student Name</string>
+    <string name="enter_class">Please Enter Class</string>
+    <string name="label_class_validate">Class Should be between 1 and 12</string>
+    <string name="enter_roll">Please Enter Student Roll No</string>
+    <string name="label_view">View Student</string>
+    <string name="label_back">Back to Home</string>
+    <string name="label_add_student">Add Student</string>
+    <string name="label_name">Name:</string>
+    <string name="label_roll">Roll No:</string>
+    <string name="label_class">Class:</string>
+    <string name="label_update">Update Student</string>
+    <string name="sort_roll_no">Roll No</string>
+    <string name="sort_name">Name</string>
+    <string name="label_invalid_class">Enter Class between 1 and 12</string>
+</resources>
