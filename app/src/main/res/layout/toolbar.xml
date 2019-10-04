@@ -28,4 +28,12 @@
         android:layout_centerInParent="true"
         android:background="@drawable/list"
         android:layout_toRightOf="@id/ib_sort"/>
+    <ImageButton
+        android:id="@+id/ib_grid"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/squares"
+        android:layout_toRightOf="@id/ib_sort"/>
 </RelativeLayout>

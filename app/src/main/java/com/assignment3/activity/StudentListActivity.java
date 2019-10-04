@@ -2,6 +2,7 @@ package com.assignment3.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import com.assignment3.R;
@@ -24,7 +27,7 @@ import java.util.Comparator;
 public class StudentListActivity extends AppCompatActivity implements StudentListAdapter.ItemClicked {
     TextView tvDisplayNoRecord;
     Button btnAddStudent;
-    ImageButton ibSort,ibListGrid;
+    ImageButton ibSort,ibListGrid,ibGrid;
     RecyclerView.Adapter studentListAdapter;
 
     RecyclerView recyclerView;
@@ -38,13 +41,36 @@ public class StudentListActivity extends AppCompatActivity implements StudentLis
         btnAddStudent=findViewById(R.id.btn_addStudent);
         tvDisplayNoRecord=findViewById(R.id.tv_display_noRecords);
         ibListGrid=findViewById(R.id.ib_list_grid);
+        ibGrid=findViewById(R.id.ib_grid);
         ibSort=findViewById(R.id.ib_sort);
         recyclerView=findViewById(R.id.rv_student_list);
 
         studentListAdapter=new StudentListAdapter(studentList,this);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(studentListAdapter);
+        ibGrid.setVisibility(View.INVISIBLE);
+
+        ibListGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ibListGrid.setVisibility(View.INVISIBLE);
+                ibGrid.setVisibility(View.VISIBLE);
+
+                GridLayoutManager gridLayoutManager=new GridLayoutManager(StudentListActivity.this,2);
+                recyclerView.setLayoutManager(gridLayoutManager);
+
+            }
+        });
+        ibGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ibGrid.setVisibility(View.INVISIBLE);
+                ibListGrid.setVisibility(View.VISIBLE);
+                recyclerView.setLayoutManager(linearLayoutManager);
+            }
+        });
 
         //sort list wrt name and roll no
         ibSort.setOnClickListener(new View.OnClickListener() {

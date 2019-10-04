@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/ll_main"
     android:orientation="vertical"
+    android:padding="@dimen/padding_normal"
     android:layout_marginTop="@dimen/margin_small"
     android:background="@drawable/common_border">
 

@@ -97,11 +97,11 @@ public class StudentActivity extends AppCompatActivity {
 
     public void submitData() {
         String etAddName = etName.getText().toString().trim();
-        int etAddClass = Integer.parseInt(etClass.getText().toString().trim());
-        int etAddRollNo = Integer.parseInt(etRollNo.getText().toString().trim());
+        String etAddClass = etClass.getText().toString().trim();
+        String etAddRollNo = etRollNo.getText().toString().trim();
 
         if (isValidate()) {
-            StudentDetails studentList = new StudentDetails(etAddName, etAddRollNo, etAddClass);
+            StudentDetails studentList = new StudentDetails(etAddName, Integer.parseInt(etAddRollNo), Integer.parseInt(etAddClass));
 
             Intent intent = new Intent(StudentActivity.this, StudentListActivity.class);
             intent.putExtra("Object", studentList);
@@ -114,17 +114,32 @@ public class StudentActivity extends AppCompatActivity {
         String etAddName = etName.getText().toString().trim();
         String etAddClass = etClass.getText().toString().trim();
         String etAddRollNo = etRollNo.getText().toString().trim();
+        String namePattern = ("^[a-zA-Z\\s]*$");
         if (etAddName.isEmpty()) {
             CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_enter_name));
             return false;
-        } else if (etAddClass.isEmpty()) {
+        } else if (etAddName.equals(namePattern)){
+            CommonUtil.showSnackBar(StudentActivity.this,getResources().getString(R.string.label_invalid_name));
+            return false;
+        }
+        else if (etAddClass.isEmpty()) {
             CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.enter_class));
             return false;
         }
         else if (etAddRollNo.isEmpty()) {
             CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.enter_roll));
             return false;
-        } else {
+        }else if (Integer.parseInt(etAddClass)>12){
+            CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_invalid_class));
+            return false;
+        }else if (Integer.parseInt(etAddClass)<0){
+            CommonUtil.showSnackBar(StudentActivity.this, getResources().getString(R.string.label_invalid_class));
+            return false;
+        }else if(Integer.parseInt(etAddRollNo)<0){
+            CommonUtil.showSnackBar(StudentActivity.this,getResources().getString(R.string.label_invalid_roll));
+            return false;
+        }
+        else {
             return true;
         }
 

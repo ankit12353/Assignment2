@@ -24,4 +24,6 @@
     <string name="sort_roll_no">Roll No</string>
     <string name="sort_name">Name</string>
     <string name="label_invalid_class">Enter Class between 1 and 12</string>
+    <string name="label_invalid_name">Invalid Name</string>
+    <string name="label_invalid_roll">Invalid Roll No</string>
 </resources>
