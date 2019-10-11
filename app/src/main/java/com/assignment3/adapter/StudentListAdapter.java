@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.ViewHolder> {
     private ArrayList<StudentDetails> studentList;
-    ItemClicked clickActivity;
+    private ItemClicked clickActivity;
 
     public StudentListAdapter(ArrayList<StudentDetails> studentList, ItemClicked itemClicked) {
         this.studentList = studentList;

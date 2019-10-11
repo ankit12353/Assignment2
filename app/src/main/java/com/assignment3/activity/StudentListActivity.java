@@ -27,7 +27,6 @@ public class StudentListActivity extends AppCompatActivity implements StudentLis
     Button btnAddStudent;
     ImageButton ibSort,ibListGrid,ibGrid;
     RecyclerView.Adapter studentListAdapter;
-
     RecyclerView recyclerView;
     ArrayList<StudentDetails> studentList=new ArrayList<>();
 
@@ -115,7 +114,9 @@ public class StudentListActivity extends AppCompatActivity implements StudentLis
         btnAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(StudentListActivity.this,StudentActivity.class),1);
+                Intent intent=new Intent(StudentListActivity.this,StudentActivity.class);
+                intent.putExtra("Code",1);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -131,10 +132,12 @@ public class StudentListActivity extends AppCompatActivity implements StudentLis
                 if (studentList.size()==0){
                     recyclerView.setVisibility(View.INVISIBLE);
                     tvDisplayNoRecord.setVisibility(View.VISIBLE);
+                    studentListAdapter.notifyDataSetChanged();
                 }
                 else {
                     recyclerView.setVisibility(View.VISIBLE);
                     tvDisplayNoRecord.setVisibility(View.INVISIBLE);
+                    studentListAdapter.notifyDataSetChanged();
                 }
             }
         }
@@ -161,8 +164,9 @@ public class StudentListActivity extends AppCompatActivity implements StudentLis
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(StudentListActivity.this,StudentActivity.class);
-                i.putExtra("Code",3);
+                i.putExtra("code",3);
                 i.putExtra("Object",studentList.get(position));
+                i.putExtra("Index",position);
                 studentListAdapter.notifyDataSetChanged();
                 startActivity(i);
                 dialog.dismiss();
