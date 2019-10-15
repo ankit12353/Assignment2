@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Assignment4</string>
+    <string name="label_student_list">Student List</string>
+    <string name="label_add_update">Add/Update Student</string>
+    <string name="label_home">Home</string>
+    <string name="label_enter_name">Enter Name</string>
+    <string name="label_enter_class">Enter Class</string>
+    <string name="label_enter_roll_no">Enter Roll No</string>
+    <string name="label_add">Add</string>
+    <string name="label_no_students_added_yet">No Students Added Yet</string>
+    <string name="label_add_student">Add Student</string>
+    <string name="label_empty_field">Field can\'t be empty</string>
+    <string name="error_valid_name">Enter Valid Name</string>
+    <string name="error_wrong_class"><![CDATA[Class should be between 1 & 12]]></string>
+    <string name="error_roll">Enter Valid Roll No</string>
+    <string name="error_valid_class">Enter Valid Class</string>
+    <string name="label_name">Name</string>
+    <string name="label_roll_no">Roll No</string>
+    <string name="btn_name_view">View</string>
+    <string name="btn_name_delete">Delete</string>
+    <string name="label_update">Update</string>
+    <string name="label_back">Back To Home</string>
+</resources>

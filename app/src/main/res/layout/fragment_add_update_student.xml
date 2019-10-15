@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_normal">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_name"
+        android:layout_marginTop="@dimen/margin_small"
+        android:hint="@string/label_enter_name"
+        android:background="@drawable/common_border"
+        android:padding="@dimen/padding_normal"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_class"
+        android:layout_marginTop="@dimen/margin_small"
+        android:hint="@string/label_enter_class"
+        android:background="@drawable/common_border"
+        android:padding="@dimen/padding_normal"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_roll"
+        android:layout_marginTop="@dimen/margin_small"
+        android:hint="@string/label_enter_roll_no"
+        android:background="@drawable/common_border"
+        android:padding="@dimen/padding_normal"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/label_add"
+        android:id="@+id/btn_add_details"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@drawable/edittext_click"
+        android:textColor="@color/colorGreen"/>
+
+</LinearLayout>
