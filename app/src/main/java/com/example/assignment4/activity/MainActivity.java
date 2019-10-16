@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton ibSort, ibGrid;
     private boolean mIsListShowing = true;
     private boolean mIsSortData= true;
-    private boolean mIsClickedUpdate=true;
+    private boolean mUpdateClicked= true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,9 +118,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //dialog on click opens fragment
-    public void dialogClick(StudentDetails getClickPositon){
+    public void dialogClick(final int clickedPosition,StudentDetails studentObj,boolean mUpdateClicked){
         viewPager.setCurrentItem(1,true);
-        mIsClickedUpdate=true;
+        addUpdateFragment.updateStudentDetail(clickedPosition,studentObj,mUpdateClicked);
+
+    }
+
+    public void onDataUpdated(final int clickedPosition,StudentDetails studentObj){
+        studentListFragment.updatedStudentDetails(clickedPosition,studentObj);
+    }
+
+    //add studnet click
+    public void clickedAddStudent(boolean mIsClickedAddStudent){
+        addUpdateFragment.clickedAddStudentCheck(mIsClickedAddStudent);
     }
 
     //btn visibility on fragment switch

@@ -6,7 +6,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_student_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_add_student"
+        />
 
     <TextView
         android:id="@+id/tv_display_no_record"

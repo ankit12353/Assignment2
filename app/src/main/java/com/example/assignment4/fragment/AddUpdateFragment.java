@@ -2,6 +2,7 @@ package com.example.assignment4.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,16 @@ import com.example.assignment4.R;
 import com.example.assignment4.activity.MainActivity;
 import com.example.assignment4.model.StudentDetails;
 
+import java.util.ArrayList;
+
 public class AddUpdateFragment extends Fragment {
     private EditText etGetName, etGetRollNo, etGetClass;
     private Button btnAdd;
     private Context mContext;
-    private StudentDetails studentDetails;
+    private StudentDetails studentDetails, studentUpdatedDetailObject;
+    private boolean mIsAddStudentClicked = true;
+    private int clickedPosition;
+
 
     @Override
     public void onAttach(Context context) {
@@ -45,31 +51,46 @@ public class AddUpdateFragment extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Integer.parseInt(etGetClass.getText().toString().trim());
+                if (mIsAddStudentClicked) {
                     try {
-                        Integer.parseInt(etGetRollNo.getText().toString().trim());
-                        addDetails();
-
-
+                        Integer.parseInt(etGetClass.getText().toString().trim());
+                        try {
+                            Integer.parseInt(etGetRollNo.getText().toString().trim());
+                            addDetails();
+                        } catch (Exception e) {
+                            etGetRollNo.setError(getResources().getString(R.string.error_roll));
+                        }
                     } catch (Exception e) {
-                        etGetRollNo.setError(getResources().getString(R.string.error_roll));
+                        etGetClass.setError(getResources().getString(R.string.error_valid_class));
                     }
-                } catch (Exception e) {
-                    etGetClass.setError(getResources().getString(R.string.error_valid_class));
-                }
-//                addDetails();
-            }
+                } else {
+                    mIsAddStudentClicked = true;
+                    String etUpdatedName = etGetName.getText().toString().trim();
+                    final int etUpdatedClass = Integer.parseInt(etGetClass.getText().toString().trim());
+                    int etUpdatedRoll = studentUpdatedDetailObject.getStudentRoll();
 
+
+                    final StudentDetails updatedStudentObj = new StudentDetails(etUpdatedName, etUpdatedClass, etUpdatedRoll);
+
+                    ((MainActivity) mContext).onDataUpdated(clickedPosition, updatedStudentObj);
+
+                    ((MainActivity) mContext).switchViewPager();
+
+                    clearEt();
+                    etGetRollNo.setInputType(InputType.TYPE_CLASS_TEXT);
+                    btnAdd.setText(getResources().getString(R.string.label_add));
+                    etGetRollNo.setBackground(getResources().getDrawable(R.drawable.common_border));
+
+                }
+            }
         });
 
         return view;
 
     }
 
-
     //add data
-    private void addDetails() {
+    public void addDetails() {
         String etAddName = etGetName.getText().toString().trim();
         String etAddClass = etGetClass.getText().toString().trim();
         String etAddRollNo = etGetRollNo.getText().toString().trim();
@@ -81,11 +102,33 @@ public class AddUpdateFragment extends Fragment {
         }
     }
 
+    //update data
+    public void updateStudentDetail(final int clickedPosiition, final StudentDetails studentObj, Boolean updateClicked) {
+
+        clickedPosition = clickedPosiition;
+        studentUpdatedDetailObject = studentObj;
+        mIsAddStudentClicked = false;
+
+        etGetRollNo.setInputType(InputType.TYPE_NULL);
+        etGetRollNo.setBackground(getResources().getDrawable(R.drawable.et_view_data));
+        btnAdd.setText(getResources().getString(R.string.label_update));
+
+        etGetName.setText(studentObj.getStudentName());
+        etGetRollNo.setText(String.valueOf(studentObj.getStudentRoll()));
+        etGetClass.setText(String.valueOf(studentObj.getStudentClass()));
+    }
+
+
     //clear all et's
     private void clearEt() {
         etGetName.setText("");
         etGetRollNo.setText("");
         etGetClass.setText("");
+    }
+
+    //checking add student click
+    public void clickedAddStudentCheck(boolean mIsAddClicked) {
+        mIsAddStudentClicked = mIsAddClicked;
     }
 
     //validation
@@ -123,3 +166,7 @@ public class AddUpdateFragment extends Fragment {
 
     }
 }
+//if (etGetClass.getText().toString().equals(String.valueOf(studentDetails.getStudentClass())) && etGetRollNo.getText().toString().equals(String.valueOf(studentDetails.getStudentRoll()))){
+//                                etGetRollNo.setError("wrong roll");
+//
+//                            }

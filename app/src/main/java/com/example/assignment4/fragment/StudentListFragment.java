@@ -38,7 +38,9 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
     private TextView tvNoRecord;
     private ImageButton ibView;
     public static final String STUDENT_OBJ="Object";
+    private Boolean updateClicked=true;
     private ArrayList<StudentDetails> mStudentDetails = new ArrayList<>();
+    private Boolean mIsClickedAddStudent=true;
 
     @Override
     public void onAttach(Context context) {
@@ -70,6 +72,7 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
             @Override
             public void onClick(View view) {
                 ((MainActivity) getActivity()).switchViewPager();
+                ((MainActivity)getActivity()).clickedAddStudent(mIsClickedAddStudent);
             }
         });
 
@@ -79,6 +82,10 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
     //getting object from activity
     public void setData(StudentDetails studentDetailsShow) {
         mStudentDetails.add(studentDetailsShow);
+        labelVisibility();
+    }
+
+    private void labelVisibility() {
         if (mStudentDetails.size() == 0) {
             recyclerView.setVisibility(View.INVISIBLE);
             tvNoRecord.setVisibility(View.VISIBLE);
@@ -118,6 +125,12 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
         rvAdapter.notifyDataSetChanged();
     }
 
+    //updated data
+    public void updatedStudentDetails(final int clickedPosition,StudentDetails studentObject){
+        mStudentDetails.set(clickedPosition,studentObject);
+        rvAdapter.notifyDataSetChanged();
+    }
+
     //sorting data as roll no
     public void sortDetailsRoll(final boolean mIsSortData) {
         if (mIsSortData) {
@@ -127,13 +140,13 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
                     String roll1 = String.valueOf(studentDetails3.getStudentRoll());
                     String roll2 = String.valueOf(studentDetails4.getStudentRoll());
                     return roll1.compareToIgnoreCase(roll2);
-
                 }
             });
         }
         rvAdapter.notifyDataSetChanged();
     }
 
+    //recyclerview click dialog box
     @Override
     public void onItemClicked(final int position) {
         final Dialog dialog = new Dialog(mContext);
@@ -148,14 +161,15 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
             public void onClick(View view) {
                 mStudentDetails.remove(position);
                 rvAdapter.notifyDataSetChanged();
+                labelVisibility();
                 dialog.dismiss();
             }
         });
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)mContext).dialogClick(mStudentDetails.get(position));
-                rvAdapter.notifyDataSetChanged();
+                ((MainActivity)mContext).dialogClick(position,mStudentDetails.get(position),updateClicked);
+                //rvAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
