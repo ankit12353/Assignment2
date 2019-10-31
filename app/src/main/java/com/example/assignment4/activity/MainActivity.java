@@ -9,18 +9,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.TableLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.assignment4.database.DatabaseHelper;
 import com.example.assignment4.R;
 import com.example.assignment4.adapter.ViewPagerAdapter;
 import com.example.assignment4.fragment.AddUpdateFragment;
 import com.example.assignment4.fragment.StudentListFragment;
 import com.example.assignment4.model.StudentDetails;
+import com.example.assignment4.servicePkg.ServiceAddStudentDetail;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private StudentListFragment studentListFragment;
@@ -29,14 +26,12 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ImageButton ibSort, ibGrid;
     private boolean mIsListShowing = true;
-    private boolean mIsSortData= true;
-    private boolean mUpdateClicked= true;
+    private boolean mIsSortData = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         xmlId();
         ViewPagerSetup();
@@ -45,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ibGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startService(new Intent(getBaseContext(), ServiceAddStudentDetail.class));
                 if (mIsListShowing) {
                     mIsListShowing = false;
                     ibGrid.setBackground(getResources().getDrawable(R.drawable.list));
@@ -66,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.sort_name:
-                                mIsSortData= true;
+                                mIsSortData = true;
                                 studentListFragment.sortDetailsName(mIsSortData);
                                 return true;
                             case R.id.sort_roll:
@@ -74,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                                 studentListFragment.sortDetailsRoll(mIsSortData);
                                 return true;
                             default:
-                                mIsSortData=false;
+                                mIsSortData = false;
                         }
                         return true;
                     }
@@ -82,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
+        DatabaseHelper dbhelper = new DatabaseHelper(this);
     }
 
     //getting all xml id's
@@ -96,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     private void ViewPagerSetup() {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         studentListFragment = new StudentListFragment();
-        addUpdateFragment = new AddUpdateFragment();
+        addUpdateFragment = new AddUpdateFragment(true);
         viewPagerAdapter.setFragment(studentListFragment, getResources().getString(R.string.label_student_list));
         viewPagerAdapter.setFragment(addUpdateFragment, getResources().getString(R.string.label_add_update));
         viewPager.setAdapter(viewPagerAdapter);
@@ -113,23 +110,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //getting data from fragment sending to  student list
-    public void addData(StudentDetails studentDetails) {
-        studentListFragment.setData(studentDetails);
+    public void addUpdateData(final int position, StudentDetails studentDetails) {
+        studentListFragment.addUpdateData(position, studentDetails);
     }
 
     //dialog on click opens fragment
-    public void dialogClick(final int clickedPosition,StudentDetails studentObj,boolean mUpdateClicked){
-        viewPager.setCurrentItem(1,true);
-        addUpdateFragment.updateStudentDetail(clickedPosition,studentObj,mUpdateClicked);
+    public void dialogClick(final int clickedPosition, StudentDetails studentObj, boolean mUpdateClicked) {
+        viewPager.setCurrentItem(1, true);
+        addUpdateFragment.updateStudentDetail(clickedPosition, studentObj, mUpdateClicked);
 
-    }
-
-    public void onDataUpdated(final int clickedPosition,StudentDetails studentObj){
-        studentListFragment.updatedStudentDetails(clickedPosition,studentObj);
     }
 
     //add studnet click
-    public void clickedAddStudent(boolean mIsClickedAddStudent){
+    public void clickedAddStudent(boolean mIsClickedAddStudent) {
         addUpdateFragment.clickedAddStudentCheck(mIsClickedAddStudent);
     }
 

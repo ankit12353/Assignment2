@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_class"
         android:layout_marginTop="@dimen/margin_small"
+        android:inputType="number"
         android:hint="@string/label_enter_class"
         android:background="@drawable/common_border"
         android:padding="@dimen/padding_normal"
@@ -29,6 +30,7 @@
         android:id="@+id/et_roll"
         android:layout_marginTop="@dimen/margin_small"
         android:hint="@string/label_enter_roll_no"
+        android:inputType="number"
         android:background="@drawable/common_border"
         android:padding="@dimen/padding_normal"
         />

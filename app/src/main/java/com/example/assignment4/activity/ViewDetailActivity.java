@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.assignment4.R;
 import com.example.assignment4.model.StudentDetails;
 
-import static com.example.assignment4.fragment.StudentListFragment.STUDENT_OBJ;
+import static com.example.assignment4.fragment.StudentListFragment.STUDENT_OBJT;
 
 public class ViewDetailActivity extends AppCompatActivity {
     private ImageButton ibSort,ibGrid;
@@ -29,7 +29,7 @@ public class ViewDetailActivity extends AppCompatActivity {
 
         init();
 
-        studentDetails=getIntent().getParcelableExtra(STUDENT_OBJ);
+        studentDetails=getIntent().getParcelableExtra(STUDENT_OBJT);
 
         viewDetails();
 

@@ -5,12 +5,13 @@ import android.os.Parcelable;
 
 public class StudentDetails implements Parcelable {
     private String studentName;
-    private int studentClass,studentRoll;
+    private int studentClass, studentRoll, type;
 
-    public StudentDetails(String studentName, int studentClass, int studentRoll) {
+    public StudentDetails(String studentName, int studentClass, int studentRoll, int type) {
         this.studentName = studentName;
         this.studentClass = studentClass;
         this.studentRoll = studentRoll;
+        this.type = type;
     }
 
     public String getStudentName() {
@@ -25,22 +26,19 @@ public class StudentDetails implements Parcelable {
         return studentRoll;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public int getType() {
+        return type;
     }
 
-    public void setStudentClass(int studentClass) {
-        this.studentClass = studentClass;
-    }
-
-    public void setStudentRoll(int studentRoll) {
-        this.studentRoll = studentRoll;
+    public void setType(int type) {
+        this.type = type;
     }
 
     protected StudentDetails(Parcel in) {
         studentName = in.readString();
         studentClass = in.readInt();
         studentRoll = in.readInt();
+        type = in.readInt();
     }
 
     public static final Creator<StudentDetails> CREATOR = new Creator<StudentDetails>() {
@@ -65,5 +63,6 @@ public class StudentDetails implements Parcelable {
         parcel.writeString(studentName);
         parcel.writeInt(studentClass);
         parcel.writeInt(studentRoll);
+        parcel.writeInt(type);
     }
 }

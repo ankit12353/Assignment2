@@ -20,15 +20,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public RecyclerViewAdapter(ArrayList<StudentDetails> studentDetails, ItemClicked clickActivity) {
         this.clickActivity = clickActivity;
-        this.studentDetails=studentDetails;
+        this.studentDetails = studentDetails;
     }
 
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
-        View studentDetails=layoutInflater.inflate(R.layout.student_detail,parent,false);
-        RecyclerViewAdapter.ViewHolder viewHolder=new RecyclerViewAdapter.ViewHolder(studentDetails);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View studentDetails = layoutInflater.inflate(R.layout.student_detail, parent, false);
+        RecyclerViewAdapter.ViewHolder viewHolder = new RecyclerViewAdapter.ViewHolder(studentDetails);
         return viewHolder;
     }
 
@@ -46,24 +46,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-
     @Override
     public int getItemCount() {
         return studentDetails.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvDisplayName,tvDisplayClass;
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvDisplayName, tvDisplayClass;
         LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDisplayName=itemView.findViewById(R.id.tv_display_name);
-            tvDisplayClass=itemView.findViewById(R.id.tv_display_class);
-            linearLayout=itemView.findViewById(R.id.ll_display_details);
+            tvDisplayName = itemView.findViewById(R.id.tv_display_name);
+            tvDisplayClass = itemView.findViewById(R.id.tv_display_class);
+            linearLayout = itemView.findViewById(R.id.ll_display_details);
 
         }
     }
-    public interface ItemClicked{
+
+    public interface ItemClicked {
         void onItemClicked(int position);
     }
 }

@@ -20,4 +20,7 @@
     <string name="btn_name_delete">Delete</string>
     <string name="label_update">Update</string>
     <string name="label_back">Back To Home</string>
+    <string name="btn_async">Async Task</string>
+    <string name="btn_service">Services</string>
+    <string name="btn_intent_service">Intent Service</string>
 </resources>

@@ -3,15 +3,14 @@ package com.example.assignment4.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +19,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.assignment4.servicePkg.AsyncTaskAddStudentDetail;
+import com.example.assignment4.database.DatabaseHelper;
 import com.example.assignment4.R;
 import com.example.assignment4.activity.MainActivity;
 import com.example.assignment4.activity.ViewDetailActivity;
@@ -30,14 +31,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class StudentListFragment extends Fragment implements RecyclerViewAdapter.ItemClicked {
+public class StudentListFragment extends Fragment implements RecyclerViewAdapter.ItemClicked,AsyncTaskAddStudentDetail.AsyncTaskCallback {
     private Button btnAddStudent;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter rvAdapter;
     private Context mContext;
     private TextView tvNoRecord;
-    private ImageButton ibView;
-    public static final String STUDENT_OBJ="Object";
+    public static final String STUDENT_OBJT="Object";
     private Boolean updateClicked=true;
     private ArrayList<StudentDetails> mStudentDetails = new ArrayList<>();
     private Boolean mIsClickedAddStudent=true;
@@ -58,14 +58,22 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
         tvNoRecord = view.findViewById(R.id.tv_display_no_record);
         btnAddStudent = view.findViewById(R.id.btn_add_student);
         recyclerView = view.findViewById(R.id.rv_student_list);
-        ibView = view.findViewById(R.id.ib_grid);
 
+        Cursor cursor=new DatabaseHelper(mContext).getAllStudentDetails();
+        while (cursor.moveToNext()){
+            String name=cursor.getString(0);
+            int studentClass=cursor.getInt(1);
+            int roll=cursor.getInt(2);
+            StudentDetails st=new StudentDetails(name,studentClass,roll,0);
+            mStudentDetails.add(st);
+        }
 
         rvAdapter = new RecyclerViewAdapter(mStudentDetails, this);
         recyclerView.setHasFixedSize(true);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(rvAdapter);
+        labelVisibility();
 
         //add student onclick listener
         btnAddStudent.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +88,15 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
     }
 
     //getting object from activity
-    public void setData(StudentDetails studentDetailsShow) {
-        mStudentDetails.add(studentDetailsShow);
+    public void addUpdateData(final int position,final StudentDetails studentDetails) {
+        if(studentDetails.getType()==1)
+        {
+            mStudentDetails.add(studentDetails);
+        }else if(studentDetails.getType()==2){
+            mStudentDetails.set(position,studentDetails);
+        }
         labelVisibility();
+
     }
 
     private void labelVisibility() {
@@ -125,12 +139,6 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
         rvAdapter.notifyDataSetChanged();
     }
 
-    //updated data
-    public void updatedStudentDetails(final int clickedPosition,StudentDetails studentObject){
-        mStudentDetails.set(clickedPosition,studentObject);
-        rvAdapter.notifyDataSetChanged();
-    }
-
     //sorting data as roll no
     public void sortDetailsRoll(final boolean mIsSortData) {
         if (mIsSortData) {
@@ -159,9 +167,11 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mStudentDetails.remove(position);
-                rvAdapter.notifyDataSetChanged();
-                labelVisibility();
+
+                StudentDetails studentDetails=mStudentDetails.get(position);
+                studentDetails.setType(3);
+
+                new AsyncTaskAddStudentDetail(mContext, StudentListFragment.this).execute(studentDetails);
                 dialog.dismiss();
             }
         });
@@ -177,11 +187,21 @@ public class StudentListFragment extends Fragment implements RecyclerViewAdapter
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mContext, ViewDetailActivity.class);
-                intent.putExtra(STUDENT_OBJ,mStudentDetails.get(position));
+                intent.putExtra(STUDENT_OBJT,mStudentDetails.get(position));
                 startActivity(intent);
                 dialog.dismiss();
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void asyncClickListner(boolean isSuccess, StudentDetails studentDetails) {
+        if(isSuccess){
+            mStudentDetails.remove(studentDetails);
+            rvAdapter.notifyDataSetChanged();
+        }else{
+
+        }
     }
 }

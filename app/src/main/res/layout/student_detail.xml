@@ -5,7 +5,7 @@
     android:id="@+id/ll_display_details"
     android:orientation="vertical"
     android:background="@drawable/edittext_click"
-    android:layout_marginTop="@dimen/margin_small"
+    android:layout_margin="@dimen/margin_xsmall"
     android:padding="@dimen/padding_normal">
     <TextView
         android:layout_width="wrap_content"

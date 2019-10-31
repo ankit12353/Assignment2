@@ -1,8 +1,5 @@
-<shape android:shape="rectangle"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke
-        android:width="@dimen/margin_xsmall"
-        android:color="@color/colorGrey"/>
-    <solid
-        android:color="@color/colorWhite"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/et_focus_pressed"
+        android:state_focused="true"/>
+    <item android:drawable="@drawable/et_border"/>
+</selector>
